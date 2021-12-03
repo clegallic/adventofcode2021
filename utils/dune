@@ -1,4 +1,4 @@
 (library
  (name utils)
- (libraries stdio)
+ (libraries str stdio)
  )
