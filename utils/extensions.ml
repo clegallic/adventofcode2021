@@ -17,6 +17,12 @@ module List = struct
     | h :: t ->
         let tail = if e = 0 then [] else sub (b - 1) (e - 1) t in
         if b > 0 then tail else h :: tail
+
+  let int_join l = String.concat " " (List.map string_of_int l)
+
+  let rec index_of x ?c:(c=0) lst = match lst with
+    | [] -> -1
+    | hd::tl -> if (hd=x) then c else index_of x tl ~c:(c+1)
 end
 
 let pow x y = float_of_int x ** float_of_int y |> int_of_float
@@ -26,8 +32,8 @@ module Str = struct
 
   let split_to_char s = Str.split (Str.regexp "") s
 
-  let split_to_int s =
-    Str.split (Str.regexp "") s |> List.map (fun a -> int_of_string a)
+  let split_to_int ?delim:(d="") s =
+    Str.split (Str.regexp d) s |> List.map (fun a -> int_of_string a)
 end
 
 let int_of_bstring s =
