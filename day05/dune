@@ -1,0 +1,4 @@
+(library
+ (name day05)
+ (libraries utils)
+ )

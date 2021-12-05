@@ -36,6 +36,18 @@ module Str = struct
     Str.split (Str.regexp d) s |> List.map (fun a -> int_of_string a)
 end
 
+module Array = struct
+  include Array
+
+  let print_matrix m = 
+    for y=0 to (Array.length m - 1) do
+      for x=0 to (Array.length m.(0) - 1) do
+        Printf.printf "%d " m.(y).(x)
+      done;
+      print_newline();
+    done;;
+end
+
 let int_of_bstring s =
   Str.split_to_char s
   |> List.map (fun c -> int_of_string c)
