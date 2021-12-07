@@ -28,6 +28,11 @@ module List = struct
 
   let rec fold_n n f acc =
     if n <= 0 then acc else fold_n (pred n) f (f acc)
+
+  let min l = List.fold_left (fun acc v -> if v < acc then v else acc ) Int.max_int l
+
+  let max l = List.fold_left (fun acc v -> if v > acc then v else acc ) Int.min_int l
+
 end
 
 let pow x y = float_of_int x ** float_of_int y |> int_of_float
