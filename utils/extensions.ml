@@ -33,6 +33,37 @@ module List = struct
 
   let max l = List.fold_left (fun acc v -> if v > acc then v else acc ) Int.min_int l
 
+  (** All keys associated with this value (ssociation list of pairs)**)
+  let rec assoc_value_all v1 l = match l with
+  | [] -> []
+  | (k,v)::tl -> if v1 = v then [k] @ assoc_value_all v1 tl else assoc_value_all v1 tl
+
+  let rec flat_map f xs =
+  match xs with
+  | [] -> []
+  | x :: xs -> List.append (f x) (flat_map f xs);;
+
+  let product lists =
+    let rec loop acc lists =
+      match lists with
+      | [] -> [[]]
+      | first :: [] -> first |> List.map (fun x -> x :: acc)
+      | first :: rest -> first |> flat_map (fun x -> loop (x :: acc) rest)
+    in
+      loop [] lists;;
+
+  let rec merge s t =
+    match s, t with
+    | x :: s , [] | [], x :: s -> x :: s
+    | [], [] -> s
+    | x :: s', y :: t' ->
+      if x < y then
+        x :: (merge s' t)
+      else if x = y then
+        x :: (merge s' t')
+      else
+          y :: (merge s t')
+
 end
 
 let pow x y = float_of_int x ** float_of_int y |> int_of_float
@@ -44,7 +75,6 @@ module Str = struct
 
   let split_to_int ?delim:(d = "") s =
     Str.split (Str.regexp d) s |> List.map (fun a -> int_of_string a)
-  ;;
 end
 
 module Array = struct
