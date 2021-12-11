@@ -64,6 +64,15 @@ module List = struct
       else
           y :: (merge s t')
 
+  let rec last = function
+  | [] -> failwith "Empty list"
+  | [x] -> x
+  | _ :: t -> last t
+
+  let remove_last l = match l with 
+    | [_] -> []
+    | _ -> sub 0 (List.length l - 2) l
+
 end
 
 let pow x y = float_of_int x ** float_of_int y |> int_of_float
