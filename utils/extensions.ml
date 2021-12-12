@@ -92,7 +92,8 @@ module Array = struct
   let print_matrix m =
     for y = 0 to Array.length m - 1 do
       for x = 0 to Array.length m.(0) - 1 do
-        Printf.printf "%d " m.(y).(x)
+        let v = m.(y).(x) in
+        Printf.printf "%d" v;
       done;
       print_newline ()
     done
@@ -111,3 +112,5 @@ let ( -- ) i j =
   let rec aux n acc = if n < i then acc else aux (n - 1) (n :: acc) in
   aux j []
 ;;
+
+let print_matrix m = Array.print_matrix (Array.map (fun l -> Array.map (fun o -> o.energy) l) m); print_newline();;

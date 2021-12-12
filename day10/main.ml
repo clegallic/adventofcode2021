@@ -27,13 +27,12 @@ let check_corruption line f =
   |> f
 
 let score_chunk = fun (is_corrupted, reduced) -> (is_corrupted, score_p1 (List.last reduced))
-let reduce_chunk = fun a -> a
 
 let score_chunks = List.fold_left (
   fun acc chunk -> match check_corruption chunk score_chunk with (true, score) -> acc + score | _ -> acc ) 0 
 
 let valid_chunks = List.fold_left (
-  fun acc chunk -> match check_corruption chunk reduce_chunk with (false, reduced) -> acc @ [reduced] | _ -> acc ) [] 
+  fun acc chunk -> match check_corruption chunk (fun a -> a) with (false, reduced) -> acc @ [reduced] | _ -> acc ) [] 
 
 let complete_chunk chunk = List.fold_right (fun symbol acc -> acc @ [closing_symbol symbol]) chunk []
 
