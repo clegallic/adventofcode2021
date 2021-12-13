@@ -89,15 +89,17 @@ end
 module Array = struct
   include Array
 
-  let print_matrix m =
+  let print_matrix m f =
     for y = 0 to Array.length m - 1 do
       for x = 0 to Array.length m.(0) - 1 do
         let v = m.(y).(x) in
-        Printf.printf "%d" v;
+        Printf.printf "%s" (f v);
       done;
       print_newline ()
     done
   ;;
+
+  let y_x_bounds m = (Array.length m - 1, Array.length m.(0) - 1)
 end
 
 let int_of_bstring s =
@@ -113,4 +115,8 @@ let ( -- ) i j =
   aux j []
 ;;
 
-let print_matrix m f = Array.print_matrix (Array.map (fun l -> Array.map (fun o -> f(o)) l) m); print_newline();;
+let (|-->) m = (0--Array.length m)
+let iter_y matrix = (0--(Array.length matrix - 1))
+let iter_x matrix = (0--(Array.length matrix.(0) - 1))
+
+;;
