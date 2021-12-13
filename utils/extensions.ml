@@ -113,4 +113,4 @@ let ( -- ) i j =
   aux j []
 ;;
 
-let print_matrix m = Array.print_matrix (Array.map (fun l -> Array.map (fun o -> o.energy) l) m); print_newline();;
+let print_matrix m f = Array.print_matrix (Array.map (fun l -> Array.map (fun o -> f(o)) l) m); print_newline();;
