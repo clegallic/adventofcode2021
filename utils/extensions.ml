@@ -38,6 +38,15 @@ module List = struct
   | [] -> []
   | (k,v)::tl -> if v1 = v then [k] @ assoc_value_all v1 tl else assoc_value_all v1 tl
 
+  (** Update associated value, or create it if missing **)
+  let update_assoc k v l = match List.assoc_opt k l with
+    | None -> l @ [(k,v)]
+    | Some _ -> List.remove_assoc k l @ [(k,v)]
+
+  let update_assoc_in_place k f default l  = match List.assoc_opt k l with
+  | None -> l @ [(k,default)]
+  | Some v -> List.remove_assoc k l @ [(k,f v)]
+
   let rec flat_map f xs =
   match xs with
   | [] -> []
@@ -100,6 +109,13 @@ module Array = struct
   ;;
 
   let y_x_bounds m = (Array.length m - 1, Array.length m.(0) - 1)
+end
+
+module Int = struct
+  include Int
+
+  let min a b = if a < b then a else b 
+  let max a b = if a > b then a else b
 end
 
 let int_of_bstring s =
