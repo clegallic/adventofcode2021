@@ -1,0 +1,4 @@
+(library
+ (name day15)
+ (libraries core_kernel core_kernel.hash_heap utils)
+ )

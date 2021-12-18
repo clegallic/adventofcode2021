@@ -10,7 +10,10 @@ module List = struct
   let int_to_str l = List.map string_of_int l
   let sum la lb = List.mapi (fun i a -> List.nth lb i + a) la
 
+  (** Returns the sublist between b and e positions included *)
   let rec sub b e l =
+    assert (b <= e);
+    assert (e <= List.length l - 1);
     match l with
     | [] -> failwith "sublist"
     | h :: t ->
@@ -18,7 +21,7 @@ module List = struct
       if b > 0 then tail else h :: tail
   ;;
 
-  let int_join l = String.concat " " (List.map string_of_int l)
+  let int_join ?s:(sep=" ") l = String.concat sep (List.map string_of_int l)
 
   let rec index_of x ?(c = 0) lst =
     match lst with
@@ -84,6 +87,7 @@ module List = struct
 
 end
 
+(** Power of x by y *)
 let pow x y = float_of_int x ** float_of_int y |> int_of_float
 
 module Str = struct
@@ -109,6 +113,8 @@ module Array = struct
   ;;
 
   let y_x_bounds m = (Array.length m - 1, Array.length m.(0) - 1)
+
+  let flatten_matrix m =  to_list Array.(concat (to_list m))
 end
 
 module Int = struct
@@ -116,6 +122,21 @@ module Int = struct
 
   let min a b = if a < b then a else b 
   let max a b = if a > b then a else b
+
+  let rec log2 = function
+  | 1 -> 0
+  | n -> 1 + log2 (n / 2)
+end
+
+module Binary = struct
+
+  let length b = 1 + Int.log2 b
+
+  let firsts b n = Int.shift_right b (length b - n)
+
+  let lasts b n = b land n
+
+  let sub b s e = lasts (firsts b e) s
 end
 
 let int_of_bstring s =

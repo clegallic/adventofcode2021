@@ -14,6 +14,8 @@ let () = Utils.Input.load_as_list ("day09/" ^ input_name) |> Day09.Main.run
 let () = Utils.Input.load_as_list ("day10/" ^ input_name) |> Day10.Main.run
 let () = Utils.Input.load_as_matrix ("day11/" ^ input_name) |> Day11.Main.run
 let () = Utils.Input.load_as_list ("day13/" ^ input_name) |> Day13.Main.run
+let () = Utils.Input.load_as_list ("day14/" ^ input_name) |> Day14.Main.run
+let () = Utils.Input.load_as_matrix ("day15/" ^ input_name) |> Day15.Main.run
 *)
 
-let () = Utils.Input.load_as_list ("day14/" ^ input_name) |> Day14.Main.run
+let () = Utils.Input.load_as_list @@ "day16/" ^ input_name |> Day16.Main.run
